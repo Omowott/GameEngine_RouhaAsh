@@ -10,6 +10,7 @@ namespace GameEngine_RouhaAsh
     {
         static void Main(string[] args)
         {
+            GameEngine gameEngine = new GameEngine();
         }
     }
 }
