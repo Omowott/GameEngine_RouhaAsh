@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36705.20 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine_RouhaAsh", "GameEngine_RouhaAsh.csproj", "{84C12DA9-5183-4C34-A4F3-7C70495F9C56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84C12DA9-5183-4C34-A4F3-7C70495F9C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C12DA9-5183-4C34-A4F3-7C70495F9C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C12DA9-5183-4C34-A4F3-7C70495F9C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C12DA9-5183-4C34-A4F3-7C70495F9C56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A92E8B6-BD6F-4015-B2C1-8F9B81F6BE8F}
+	EndGlobalSection
+EndGlobal
