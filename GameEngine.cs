@@ -35,7 +35,7 @@ namespace GameEngine_RouhaAsh
                     lag -= FIXED_FRAME_TIME;
                 }
 
-                _player.Render();
+                Render();
 
                 last_time = loop_start_time;
             }
@@ -46,15 +46,36 @@ namespace GameEngine_RouhaAsh
 
         private void ProcessInput()
         {
-            ConsoleKeyInfo player_command = Console.ReadKey(true);
-            if(player_command.Key == ConsoleKey.Enter)
+            if(Console.KeyAvailable)
             {
+                ConsoleKeyInfo player_command = Console.ReadKey(true);
 
+                if (player_command.Key == ConsoleKey.LeftArrow)
+                {
+                    _player.SetDirection(new Vector2(-1, 0));
+                }
+                else if (player_command.Key == ConsoleKey.RightArrow)
+                {
+                    _player.SetDirection(new Vector2(1, 0));
+                }
+                else if (player_command.Key == ConsoleKey.UpArrow)
+                {
+                    _player.SetDirection(new Vector2(0, -1));
+                }
+                else if (player_command.Key == ConsoleKey.DownArrow)
+                {
+                    _player.SetDirection(new Vector2(0, 1));
+                }
             }
+            
         }
         private void Update(float elapsed_time)
         {
 
+        }
+        private void Render()
+        {
+            _player.Render();
         }
 
         private float GetCurrentTime()
