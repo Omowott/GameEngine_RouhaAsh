@@ -28,10 +28,11 @@ namespace GameEngine_RouhaAsh
                 float elapsed_time = loop_start_time - last_time;
                 lag += elapsed_time;
                 ProcessInput();
+                Update(elapsed_time);
 
                 while (lag >= FIXED_FRAME_TIME)
                 {
-                    Update(FIXED_FRAME_TIME);
+                    FixedUpdate(FIXED_FRAME_TIME);
                     lag -= FIXED_FRAME_TIME;
                 }
 
@@ -111,6 +112,7 @@ namespace GameEngine_RouhaAsh
         }
         private void Render()
         {
+            Console.Clear();
             _player.Render();
         }
 

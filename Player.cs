@@ -19,6 +19,11 @@ namespace GameEngine_RouhaAsh
             Console.Write(_renderGraphic);
         }
 
+        public void SetPosition(Vector2 new_position)
+        {
+            _position = new_position;
+        }
+
         public void SetDirection(Vector2 new_direction)
         {
             _direction = new_direction;
@@ -29,10 +34,6 @@ namespace GameEngine_RouhaAsh
             return _position;
         }
 
-        public void SetPosition(Vector2 new_position)
-        {
-            _position = new_position;
-        }
         public Vector2 GetDirection()
         {
             return _direction;
