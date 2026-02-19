@@ -42,7 +42,43 @@ namespace GameEngine_RouhaAsh
 
             
         }
-        //------------------------------------------------
+
+        public void FixedUpdate(float elapsed_time)
+        {
+            Vector2 player_position = _player.GetPosition();
+            Vector2 player_direction = _player.GetDirection();
+
+            Vector2 new_position = new Vector2(0, 0);
+
+            new_position.SetX(player_position.GetX() + player_direction.GetX() * elapsed_time * _player.GetSpeed());
+            new_position.SetY(player_position.GetY() + player_direction.GetY() * elapsed_time * _player.GetSpeed());
+
+            _player.SetPosition(new_position);
+            _player.SetDirection(new Vector2(0, 0));
+
+            // limites --------------------------------------------------------------------------------------
+
+            if (_player.GetPosition().GetX() < 0) //limite X
+            {
+                _player.GetPosition().SetX(0);
+
+            }
+            else if (_player.GetPosition().GetX() >= Console.WindowWidth) //taille de fenetre
+            {
+                _player.GetPosition().SetX(Console.WindowWidth - 1);
+            }
+
+            if (_player.GetPosition().GetY() < 0) //même chose mais en Y
+            {
+                _player.GetPosition().SetY(0);
+            }
+            else if (_player.GetPosition().GetY() >= Console.WindowHeight)
+            {
+                _player.GetPosition().SetY(Console.WindowHeight - 1);
+            }
+        }
+
+        //--------------------------------------------------------------------------------------------------------------------------------
 
         private void ProcessInput()
         {
