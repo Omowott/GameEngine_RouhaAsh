@@ -15,7 +15,7 @@ namespace GameEngine_RouhaAsh
 
         public void Render()
         {
-            Console.SetCursorPosition((int) _position.GetX(),(int) _position.GetY());
+            Console.SetCursorPosition((int)_position.GetX(),(int)_position.GetY());
             Console.Write(_renderGraphic);
         }
 
