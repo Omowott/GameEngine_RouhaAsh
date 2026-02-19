@@ -17,6 +17,7 @@ namespace GameEngine_RouhaAsh
         public void Run()
         {
             _stopwatch.Start(); //start
+            Console.CursorVisible = false;
 
             const float FIXED_FRAME_TIME = 20 / 1000.0f;
             float lag = 0.0f;
@@ -57,26 +58,7 @@ namespace GameEngine_RouhaAsh
             _player.SetPosition(new_position);
             _player.SetDirection(new Vector2(0, 0));
 
-            // limites --------------------------------------------------------------------------------------
 
-            if (_player.GetPosition().GetX() < 0) //limite X
-            {
-                _player.GetPosition().SetX(0);
-
-            }
-            else if (_player.GetPosition().GetX() >= Console.WindowWidth) //taille de fenetre
-            {
-                _player.GetPosition().SetX(Console.WindowWidth - 1);
-            }
-
-            if (_player.GetPosition().GetY() < 0) //même chose mais en Y
-            {
-                _player.GetPosition().SetY(0);
-            }
-            else if (_player.GetPosition().GetY() >= Console.WindowHeight)
-            {
-                _player.GetPosition().SetY(Console.WindowHeight - 1);
-            }
         }
 
         //--------------------------------------------------------------------------------------------------------------------------------

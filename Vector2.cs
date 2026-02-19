@@ -26,7 +26,7 @@ namespace GameEngine_RouhaAsh
         }
         public void SetY(float new_y)
         {
-            _y -= new_y;
+            _y = new_y;
         }
 
         public Vector2()

@@ -22,6 +22,25 @@ namespace GameEngine_RouhaAsh
         public void SetPosition(Vector2 new_position)
         {
             _position = new_position;
+            // limites --------------------------------------------------------------------------------------
+
+            if (GetPosition().GetX() < 0) //limite X
+            {
+                GetPosition().SetX(0);
+            }
+            else if (GetPosition().GetX() >= Console.WindowWidth) //taille de fenetre
+            {
+                GetPosition().SetX(Console.WindowWidth - 1);
+            }
+
+            if (GetPosition().GetY() < 0) //même chose mais en Y
+            {
+                GetPosition().SetY(0);
+            }
+            else if (GetPosition().GetY() >= Console.WindowHeight)
+            {
+                GetPosition().SetY(Console.WindowHeight - 1);
+            }
         }
 
         public void SetDirection(Vector2 new_direction)
