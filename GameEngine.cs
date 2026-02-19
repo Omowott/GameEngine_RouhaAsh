@@ -12,11 +12,11 @@ namespace GameEngine_RouhaAsh
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private bool _shouldQuit;
 
-        Player player = new Player();
+        private Player _player = new Player();
 
         public void Run()
         {
-            _stopwatch.Start();
+            _stopwatch.Start(); //start
 
             const float FIXED_FRAME_TIME = 20 / 1000.0f;
             float lag = 0.0f;
@@ -35,7 +35,7 @@ namespace GameEngine_RouhaAsh
                     lag -= FIXED_FRAME_TIME;
                 }
 
-                //Render();
+                _player.Render();
 
                 last_time = loop_start_time;
             }

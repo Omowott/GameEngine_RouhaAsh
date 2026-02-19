@@ -8,9 +8,10 @@ namespace GameEngine_RouhaAsh
 {
     internal class Player
     {
-        Vector2 _position;
+        private Vector2 _position = new Vector2();
         private string _renderGraphic = "@";
         private float _speed = 10.0f;
+        private Vector2 _direction = new Vector2();
 
         public void Render()
         {
@@ -20,11 +21,26 @@ namespace GameEngine_RouhaAsh
 
         public void SetDirection(Vector2 new_direction)
         {
+            _direction = new_direction;
         }
 
         public Vector2 GetPosition()
         {
             return _position;
+        }
+
+        public void SetPosition(Vector2 new_position)
+        {
+            _position = new_position;
+        }
+        public Vector2 GetDirection()
+        {
+            return _direction;
+        }
+
+        public float GetSpeed()
+        {
+            return _speed;
         }
     }
 }

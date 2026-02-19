@@ -28,5 +28,14 @@ namespace GameEngine_RouhaAsh
         {
             _x -= new_y;
         }
+
+        public Vector2()
+        { }
+
+        public Vector2(float x, float y)
+        {
+            _x = x;
+            _y = y;
+        }
     }
 }
