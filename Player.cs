@@ -8,10 +8,13 @@ namespace GameEngine_RouhaAsh
 {
     internal class Player : GameObject
     {
-        private Vector2 _position = new Vector2();
-        private string _renderGraphic = "@";
-        private float _speed = 10.0f;
-        private Vector2 _direction = new Vector2();
+        private readonly string _renderGraphic = "@";
+
+        private Vector2 _position = new Vector2(0, 0);
+        private Vector2 _direction = new Vector2(0, 0);
+
+        private readonly float _speed = 50;
+
         private readonly Level _level;
 
         public Player(GameEngine game_engine, Level level) : base(game_engine)
@@ -19,73 +22,51 @@ namespace GameEngine_RouhaAsh
             _level = level;
         }
 
-
-        public override void Render()
+        public override void FixedUpdate(float fixed_elapsed_time)
         {
-            Console.SetCursorPosition((int)_position.GetX(),(int)_position.GetY());
-            Console.Write(_renderGraphic);
-        }
+            Vector2 new_position = new Vector2(
+                _position.GetX() + _direction.GetX() * fixed_elapsed_time * _speed,
+                _position.GetY() + _direction.GetY() * fixed_elapsed_time * _speed
+            );
 
-        public void SetPosition(Vector2 new_position)
-        {
+            if (new_position.GetX() < 0)
+            {
+                new_position.SetX(0);
+            }
+            else if (new_position.GetX() >= _level.GetWidth())
+            {
+                new_position.SetX(Console.WindowWidth - 1);
+            }
+
+            if (new_position.GetY() < 0)
+            {
+                new_position.SetY(0);
+            }
+            else if (new_position.GetY() >= _level.GetHeight())
+            {
+                new_position.SetY(Console.WindowHeight - 1);
+            }
+
             _position = new_position;
-            // limites --------------------------------------------------------------------------------------
-
-            if (GetPosition().GetX() < 0) //limite X
-            {
-                GetPosition().SetX(0);
-            }
-            else if (GetPosition().GetX() >= Console.WindowWidth) //taille de fenetre
-            {
-                GetPosition().SetX(Console.WindowWidth - 1);
-            }
-
-            if (GetPosition().GetY() < 0) //même chose mais en Y
-            {
-                GetPosition().SetY(0);
-            }
-            else if (GetPosition().GetY() >= Console.WindowHeight)
-            {
-                GetPosition().SetY(Console.WindowHeight - 1);
-            }
+            _direction = new Vector2(0, 0);
         }
-
-        public void SetDirection(Vector2 new_direction)
-        {
-            _direction = new_direction;
-        }
-
-        public Vector2 GetPosition()
-        {
-            return _position;
-        }
-
-        public Vector2 GetDirection()
-        {
-            return _direction;
-        }
-
-        public float GetSpeed()
-        {
-            return _speed;
-        }
-
-        //EXO 2 THRUST
 
         public override void Update(float elapsed_time)
         {
-            
-        }
-        public override void FixedUpdate(float elapsed_time)
-        {
 
+        }
+
+        public override void Render()
+        {
+            Console.SetCursorPosition((int)_position.GetX(), (int)_position.GetY());
+            Console.Write(_renderGraphic);
         }
 
         public override void HandleInput(ConsoleKeyInfo player_command)
         {
             Vector2 new_direction = new Vector2(0, 0);
 
-            if(player_command.Key == ConsoleKey.LeftArrow)
+            if (player_command.Key == ConsoleKey.LeftArrow)
             {
                 new_direction = new Vector2(-1, 0);
             }
@@ -111,3 +92,4 @@ namespace GameEngine_RouhaAsh
     }
 
 }
+
