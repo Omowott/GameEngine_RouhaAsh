@@ -47,23 +47,23 @@ namespace GameEngine_RouhaAsh
             if (new_position.GetX() < 0)
             {
                 new_position.SetX(0);
-                _direction = new Vector2(1, 0);
+                _direction.SetX(-_direction.GetX());
             }
             else if (new_position.GetX() >= _level.GetWidth())
             {
                 new_position.SetX(Console.WindowWidth - 1);
-                _direction = new Vector2(-1, 0);
+                _direction.SetX(-_direction.GetX());
             }
 
             if (new_position.GetY() < 0)
             {
                 new_position.SetY(0);
-                _direction = new Vector2(0, -1);
+                _direction.SetY(-_direction.GetY());
             }
             else if (new_position.GetY() >= _level.GetHeight())
             {
                 new_position.SetY(Console.WindowHeight - 1);
-                _direction = new Vector2(0, 1);
+                _direction.SetY(-_direction.GetY());
             }
 
             _position = new_position;
