@@ -1,18 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace GameEngine_RouhaAsh
 {
-    internal class GameEngine
+    public class GameEngine
     {
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private bool _shouldQuit;
 
-        private Player _player = new Player();
+        private readonly List<GameObject> _gameObjectTable = new List<GameObject>();
+        private readonly List<GameObject> _gameObjectToAddTable = new List<GameObject>();
+        private readonly List<GameObject> _gameObjectToRemoveTable = new List<GameObject>();
+
+        public void AddGameObject(GameObject game_object)
+        {
+            _gameObjectToAddTable.Add(game_object);
+        }
+
+        public void RemoveGameObject(GameObject game_object)
+        {
+            _gameObjectToRemoveTable.Add(game_object);
+        }
+
 
         public void Run()
         {
@@ -22,7 +33,10 @@ namespace GameEngine_RouhaAsh
             const float FIXED_FRAME_TIME = 20 / 1000.0f;
             float lag = 0.0f;
             float last_time = GetCurrentTime();
-           
+
+            Level level = new Level(this);
+            Player player = new Player(this,level);
+
             while (!_shouldQuit)
             {
                 float loop_start_time = GetCurrentTime();
@@ -37,65 +51,83 @@ namespace GameEngine_RouhaAsh
                     lag -= FIXED_FRAME_TIME;
                 }
 
+                UpdateGameObjectTable();
+
                 Render();
 
                 last_time = loop_start_time;
             }
-
-            
+            Console.WriteLine("Goodbye!");
         }
 
-        public void FixedUpdate(float elapsed_time)
+        public void FixedUpdate(float fixed_elapsed_time)
         {
-            Vector2 player_position = _player.GetPosition();
-            Vector2 player_direction = _player.GetDirection();
-
-            Vector2 new_position = new Vector2(0, 0);
-
-            new_position.SetX(player_position.GetX() + player_direction.GetX() * elapsed_time * _player.GetSpeed());
-            new_position.SetY(player_position.GetY() + player_direction.GetY() * elapsed_time * _player.GetSpeed());
-
-            _player.SetPosition(new_position);
-            _player.SetDirection(new Vector2(0, 0));
-
-
+            foreach (GameObject game_object in _gameObjectTable)
+            {
+                game_object.FixedUpdate(fixed_elapsed_time);
+            }
         }
+
+
+        private void UpdateGameObjectTable()
+        {
+            foreach (GameObject game_object in _gameObjectToRemoveTable)
+            {
+                _gameObjectTable.Remove(game_object);
+            }
+
+            _gameObjectToRemoveTable.Clear();
+
+            foreach (GameObject game_object in _gameObjectToAddTable)
+            {
+                _gameObjectTable.Add(game_object);
+            }
+
+            _gameObjectToAddTable.Clear();
+        }
+
 
         //--------------------------------------------------------------------------------------------------------------------------------
 
         private void ProcessInput()
         {
-            if(Console.KeyAvailable)
+            while (Console.KeyAvailable)
             {
                 ConsoleKeyInfo player_command = Console.ReadKey(true);
 
-                if (player_command.Key == ConsoleKey.LeftArrow)
+                if (player_command.Key == ConsoleKey.Escape)
                 {
-                    _player.SetDirection(new Vector2(-1, 0));
+                    _shouldQuit = true;
                 }
-                else if (player_command.Key == ConsoleKey.RightArrow)
+                else
                 {
-                    _player.SetDirection(new Vector2(1, 0));
-                }
-                else if (player_command.Key == ConsoleKey.UpArrow)
-                {
-                    _player.SetDirection(new Vector2(0, -1));
-                }
-                else if (player_command.Key == ConsoleKey.DownArrow)
-                {
-                    _player.SetDirection(new Vector2(0, 1));
+                    foreach (GameObject game_object in _gameObjectTable)
+                    {
+                        game_object.HandleInput(player_command);
+                    }
                 }
             }
-            
+
         }
         private void Update(float elapsed_time)
         {
+            foreach (GameObject game_object in _gameObjectTable)
+            {
+                game_object.Update(elapsed_time);
+            }
 
         }
         private void Render()
         {
             Console.Clear();
-            _player.Render();
+
+            foreach (GameObject game_object in _gameObjectTable)
+            {
+                game_object.Render();
+            }
+
+            Thread.Sleep(10);
+
         }
 
         private float GetCurrentTime()

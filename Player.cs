@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace GameEngine_RouhaAsh
 {
-    internal class Player
+    internal class Player : GameObject
     {
         private Vector2 _position = new Vector2();
         private string _renderGraphic = "@";
         private float _speed = 10.0f;
         private Vector2 _direction = new Vector2();
+        private readonly Level _level;
 
-        public void Render()
+        public Player(GameEngine game_engine, Level level) : base(game_engine)
+        {
+            _level = level;
+        }
+
+
+        public override void Render()
         {
             Console.SetCursorPosition((int)_position.GetX(),(int)_position.GetY());
             Console.Write(_renderGraphic);
@@ -62,5 +69,45 @@ namespace GameEngine_RouhaAsh
         {
             return _speed;
         }
+
+        //EXO 2 THRUST
+
+        public override void Update(float elapsed_time)
+        {
+            
+        }
+        public override void FixedUpdate(float elapsed_time)
+        {
+
+        }
+
+        public override void HandleInput(ConsoleKeyInfo player_command)
+        {
+            Vector2 new_direction = new Vector2(0, 0);
+
+            if(player_command.Key == ConsoleKey.LeftArrow)
+            {
+                new_direction = new Vector2(-1, 0);
+            }
+
+            else if (player_command.Key == ConsoleKey.RightArrow)
+            {
+                new_direction = new Vector2(1, 0);
+            }
+
+            else if (player_command.Key == ConsoleKey.UpArrow)
+            {
+                new_direction = new Vector2(0, -1);
+            }
+
+            else if (player_command.Key == ConsoleKey.DownArrow)
+            {
+                new_direction = new Vector2(0, 1);
+            }
+
+            _direction = new_direction;
+
+        }
     }
+
 }
