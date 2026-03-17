@@ -10,7 +10,7 @@ namespace GameEngine_RouhaAsh
     {
         void Enter();
         void Exit();
-        void Update(float elapsed_time);
+        void Update();
         void ProcessInput(ConsoleKeyInfo input);
         void Render();
     }
