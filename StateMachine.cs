@@ -9,9 +9,11 @@ namespace GameEngine_RouhaAsh
     internal class StateMachine
     {
         private IState _currentState;
+        private MainMenuState _menuState = new MainMenuState();
 
         public void SetInitialState(IState initial_state)
         {
+            _currentState = _menuState;
             _currentState = initial_state;
             _currentState.Enter();
         }

@@ -49,11 +49,15 @@
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="Generator.cs" />
+    <Compile Include="InGameState.cs" />
     <Compile Include="IState.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="MainMenuState.cs" />
+    <Compile Include="PauseState.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateMachine.cs" />
     <Compile Include="Vector2.cs" />
   </ItemGroup>
   <ItemGroup>

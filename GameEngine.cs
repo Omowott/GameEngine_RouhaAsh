@@ -14,6 +14,13 @@ namespace GameEngine_RouhaAsh
         private readonly List<GameObject> _gameObjectToAddTable = new List<GameObject>();
         private readonly List<GameObject> _gameObjectToRemoveTable = new List<GameObject>();
 
+        private StateMachine _gameFlowStateMachine = new StateMachine();
+
+        public void SetQuit(bool should_quit)
+        {
+           _shouldQuit = should_quit;
+        }
+
         public void AddGameObject(GameObject game_object)
         {
             _gameObjectToAddTable.Add(game_object);
@@ -57,7 +64,7 @@ namespace GameEngine_RouhaAsh
 
                 last_time = loop_start_time;
             }
-            Console.WriteLine("Goodbye!");
+            Console.WriteLine("Goodbye !");
         }
 
         public void FixedUpdate(float fixed_elapsed_time)
@@ -115,6 +122,20 @@ namespace GameEngine_RouhaAsh
             {
                 game_object.Update(elapsed_time);
             }
+
+            /* help
+            Console.WriteLine("Menu state");
+            Console.WriteLine("1. Enter game");
+            Console.WriteLine("2. Exit game");
+            string user_input = Console.ReadLine();
+            if(user_input == "1")
+            {
+                _gameFlowStateMachine.ChangeState();
+            }
+            if(user_input == "2")
+            {
+                _gameFlowStateMachine.Exit();
+            }*/
 
         }
         private void Render()
